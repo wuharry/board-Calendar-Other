@@ -44,24 +44,30 @@ function Board() {
 
   const [columns, setColumns] = useState(exampleColumns);
   const onDragEnd = (result) => {
-    // 處理拖拽結束後的邏輯
     if (!result.destination) return; // 如果拖曳到無效區域，不做任何事情
-    const sourceColumnIndex = columns.findIndex(
-      (col) => col.id === result.source.droppableId
-    );
-    const destinationColumnIndex = columns.findIndex(
-      (col) => col.id === result.destination.droppableId
-    );
-
-    if (sourceColumnIndex === -1 || destinationColumnIndex === -1) return;
-
-    handleMoveTask(
-      result.source,
-      result.destination,
-      sourceColumnIndex,
-      destinationColumnIndex
-    );
+  
+    // **區分是「Task 拖曳」還是「Column 拖曳」**
+    if (result.type === "COLUMN") {
+      handleMoveList(result.source, result.destination);
+    } else if (result.type === "TASK") {
+      const sourceColumnIndex = columns.findIndex(
+        (col) => col.id === result.source.droppableId
+      );
+      const destinationColumnIndex = columns.findIndex(
+        (col) => col.id === result.destination.droppableId
+      );
+  
+      if (sourceColumnIndex === -1 || destinationColumnIndex === -1) return;
+  
+      handleMoveTask(
+        result.source,
+        result.destination,
+        sourceColumnIndex,
+        destinationColumnIndex
+      );
+    }
   };
+  
 
   const handleMoveTask = (
     source,
@@ -99,6 +105,16 @@ function Board() {
 
     setColumns(newColumns); // 更新狀態
   };
+  const handleMoveList = (source, destination) => {
+    const newColumns = Array.from(columns); // **確保複製新的 columns 陣列**
+  
+    const [movedColumn] = newColumns.splice(source.index, 1); // **刪除來源的 Column**
+    newColumns.splice(destination.index, 0, movedColumn); // **插入到新位置**
+  
+    setColumns(newColumns); // **更新 React State，讓 UI 重新渲染**
+    console.log("移動了 Column：", movedColumn.title); // **確認移動的是哪個欄位**
+  };
+  
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>

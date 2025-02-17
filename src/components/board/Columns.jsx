@@ -5,9 +5,8 @@ import TaskCard from "./Card";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 
-function Columns({ column, id, index }) {
+function Columns({ column, index }) {
   const tasks = column.tasks || []; // 避免 tasks 可能是 undefined
-  console.log("Columns id", id, typeof id);
 
   return (
     <Draggable draggableId={column.id} index={index}>
@@ -51,7 +50,7 @@ function Columns({ column, id, index }) {
                     index={index}
                   />
                 ))}
-                {provided.placeholder}{" "}
+                {provided.placeholder}
                 {/* ✅ 必須加上,確保 UI 不會在拖曳時發生「跳動」或「崩潰」確保 UI 不會在拖曳時發生「跳動」或「崩潰」 */}
               </Box>
             )}

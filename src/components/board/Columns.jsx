@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 import TaskCard from "./Card";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
+import CreateTask from "./CreateTask";
 
-function Columns({ column, index }) {
+function Columns({ column, index, handleCreateTask }) {
   const tasks = column.tasks || []; // 避免 tasks 可能是 undefined
-
   return (
     <Draggable draggableId={column.id} index={index}>
       {(draggableProvided) => (
@@ -16,9 +16,9 @@ function Columns({ column, index }) {
           ref={draggableProvided.innerRef}
           {...draggableProvided.draggableProps}
           {...draggableProvided.dragHandleProps}
-          sx={{ backgroundColor: "#3C3C3C", borderRadius: 2, padding: 2 }}
+          sx={{ backgroundColor: "blueviolet", borderRadius: 2, padding: 2 }}
         >
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" color="white" gutterBottom>
             {column.title}
           </Typography>
           {/* 這個 Droppable 允許 TaskCard 被放入 */}
@@ -50,6 +50,7 @@ function Columns({ column, index }) {
                     index={index}
                   />
                 ))}
+                <CreateTask handleCreateTask={handleCreateTask} />
                 {provided.placeholder}
                 {/* ✅ 必須加上,確保 UI 不會在拖曳時發生「跳動」或「崩潰」確保 UI 不會在拖曳時發生「跳動」或「崩潰」 */}
               </Box>
@@ -60,6 +61,7 @@ function Columns({ column, index }) {
     </Draggable>
   );
 }
+
 Columns.propTypes = {
   id: PropTypes.string.isRequired,
   column: PropTypes.shape({
@@ -75,5 +77,6 @@ Columns.propTypes = {
     ),
   }).isRequired,
   index: PropTypes.number.isRequired,
+  handleCreateTask: PropTypes.func,
 };
 export default Columns;

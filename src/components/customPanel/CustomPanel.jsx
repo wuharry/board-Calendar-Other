@@ -1,18 +1,18 @@
 import PropTypes from "prop-types";
+import { Box } from "@mui/material";
 
 const CustomTabPanel = ({ children, value, index }) => {
   const hidden = value !== index;
 
   return (
-    <div
-      role="tabpanel"
+    <Box
       hidden={hidden}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      className={`${hidden ? "hidden" : "block"} p-6`}
+      sx={{ p: 2 }}
     >
       {value === index && <div>{children}</div>}
-    </div>
+    </Box>
   );
 };
 

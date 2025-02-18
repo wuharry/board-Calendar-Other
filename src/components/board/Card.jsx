@@ -6,7 +6,6 @@ import { Draggable } from "@hello-pangea/dnd";
 import PropTypes from "prop-types";
 
 function TaskCard({ title, date, task, id, index }) {
-
   return (
     <Draggable draggableId={id} index={index}>
       {(provided) => (

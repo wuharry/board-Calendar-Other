@@ -81,7 +81,7 @@ function Board({ data, handleCreateBoard, handleCreateTask }) {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      {/* 使用 <Droppable type="COLUMN"> 來允許列的重新排序 */}
+      {/* 使用 <Droppable type="COLUMN">  */}
       <Droppable droppableId="board" type="COLUMN" direction="horizontal">
         {(provided) => (
           <Box

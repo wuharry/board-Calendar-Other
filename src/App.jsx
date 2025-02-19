@@ -73,8 +73,6 @@ function App() {
     setData(newColumn);
     // open modal to create new task
   };
-
-  // ...
   const handleCreateBoard = () => {
     console.log("create column");
     setData([...data, { id: `${uuidv4()}`, title: "New Column", tasks: [] }]);

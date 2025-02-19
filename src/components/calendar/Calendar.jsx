@@ -4,6 +4,7 @@ import timeGridPlugin from "@fullcalendar/timegrid"; // 用於週視圖
 import listPlugin from "@fullcalendar/list"; // 用於列表視圖
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
+import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 
 export default function Calendar({ data }) {
   const header = {
@@ -22,7 +23,7 @@ export default function Calendar({ data }) {
 
   return (
     <FullCalendar
-      plugins={[dayGridPlugin, timeGridPlugin, listPlugin]} // 載入需要的插件
+      plugins={[dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin]} // 載入需要的插件
       headerToolbar={header} // 配置 Header
       initialView="dayGridMonth" // 預設顯示月視圖
       events={events}

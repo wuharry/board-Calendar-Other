@@ -17,7 +17,17 @@ function CreateBoard({ handleCreateBoard }) {
         cursor: "pointer",
       }}
     >
-      <Button onClick={() => handleCreateBoard()}>
+      <Button
+        sx={{
+          width: "fit-content",
+          height: "100%",
+          "&:hover": {
+            backgroundColor: "lightgrey", // 使用與正常狀態相同的背景色
+            boxShadow: "none", // 移除 hover 時的陰影
+          },
+        }}
+        onClick={() => handleCreateBoard()}
+      >
         <AddIcon color="white" />
       </Button>
     </Paper>

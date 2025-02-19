@@ -50,7 +50,10 @@ function Columns({ column, index, handleCreateTask }) {
                     index={index}
                   />
                 ))}
-                <CreateTask handleCreateTask={handleCreateTask} />
+                <CreateTask
+                  handleCreateTask={handleCreateTask}
+                  columnId={column.id}
+                />
                 {provided.placeholder}
                 {/* ✅ 必須加上,確保 UI 不會在拖曳時發生「跳動」或「崩潰」確保 UI 不會在拖曳時發生「跳動」或「崩潰」 */}
               </Box>

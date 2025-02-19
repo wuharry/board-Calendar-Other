@@ -4,10 +4,12 @@ import CustomTabPanel from "./components/customPanel/CustomPanel";
 import Calendar from "./components/calendar/Calendar";
 import Board from "./components/board/Board";
 import { useEffect } from "react";
+import { v4 as uuidv4 } from "uuid"; // Import uuidv4 from 'uuid' package
 
 function App() {
   const [value, setValue] = useState(0);
   const [data, setData] = useState([]);
+
   const exampleColumns = [
     {
       id: "column-1",
@@ -52,18 +54,33 @@ function App() {
     setValue(newValue);
   };
 
-  const handleCreateTask = () => {
+  const handleCreateTask = (columnId) => {
     console.log("create task");
+
     // create task code here
-    // setData([...data, { id: "new-column", title: "New Column", tasks: [] }]);
-    //  open modal to create new task
+    const newColumn = data.map((column) => {
+      if (column.id === columnId) {
+        column.tasks.push({
+          id: `${uuidv4()}`,
+          title: "New Task",
+          date: new Date().toISOString().split("T")[0],
+          task: "",
+        });
+      }
+      return column;
+    });
+    console.log(newColumn);
+    setData(newColumn);
+    // open modal to create new task
   };
+
+  // ...
   const handleCreateBoard = () => {
     console.log("create column");
-    // delete column code here
-    // setData(data.filter((column) => column.id!== columnId));
+    setData([...data, { id: `${uuidv4()}`, title: "New Column", tasks: [] }]);
     //  open modal to confirm
   };
+
   return (
     <Box sx={{ flexGrow: 1, width: "100%", height: "100vh" }}>
       <AppBar position="static" color="warning">
